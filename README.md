@@ -1,0 +1,1 @@
+# coinpaprika-google-sheet
