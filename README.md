@@ -1,1 +1,1 @@
-# coinpaprika-google-sheet
+# coinpaprika-google-sheet readme
