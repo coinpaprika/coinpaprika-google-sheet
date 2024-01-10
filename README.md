@@ -1,82 +1,85 @@
 # CoinPaprika Google Sheets Integration
 
-Welcome to the CoinPaprika Google Sheets Integration! This powerful tool seamlessly integrates cryptocurrency data from CoinPaprika into Google Sheets, enabling you to track the latest market information effortlessly.
+Welcome to the updated CoinPaprika Google Sheets Integration! This tool integrates real-time cryptocurrency data from CoinPaprika into Google Sheets, enabling advanced tracking and analysis of the cryptocurrency market.
 
 ## Features
 
-- **Seamless Integration:** Easily import and automatically update cryptocurrency data in your Google Sheets.
-- **Customizable Data Retrieval:** Fetch specific data points or entire datasets based on your needs.
-- **Historical Data Access:** (With API-PRO) Dive into historical cryptocurrency data for in-depth analysis.
+- **Direct API Integration:** Fetch real-time cryptocurrency data from CoinPaprika's API.
+- **Custom Functions:** Access various data points, including historical data, ticker information, global crypto market data, and specific coin details.
+- **API-PRO Compatibility:** Leverage enhanced features with CoinPaprika's API-PRO for more detailed data access.
+- **Simple Configuration:** Use API key as a parameter for expanded data access.
 
 ## Setup Guide
 
 ### Step 1: Open Google Sheets
-
-Open the Google Sheets document where you want to integrate CoinPaprika data.
-
+Create or open an existing Google Sheets document for cryptocurrency data integration.
 ![Step 1](screenshots/step1.png)
 
-### Step 2: Import the CoinPaprika Template
+### Step 2: Access Script Editor
+In Google Sheets, navigate to "Extensions" > "Apps Script" to open the Script Editor.
+![Step 2](screenshots/step2.png)
 
-Before using the script, import the `coinpaprika.xml` template into your Google Sheets.
-
-- Download the `coinpaprika.xml` file from the repository.
-- In Google Sheets, go to `File` > `Import` > `Upload`.
-- Select the downloaded `coinpaprika.xml` file and upload it.
-- Choose how you want the data to be inserted (e.g., as a new sheet or replace the current sheet).
-- After importing, ensure the data structure matches the expected format for the script.
-
-### Step 3: Configure API Key (Optional)
-
-If you have an API key, enter it in the "config" sheet in cell B1. This step is optional; the tool works without an API key, but with limited features.
-
+### Step 3: Copy and Paste the Script
+Copy the CoinPaprika integration script from the repository and paste it into the Script Editor.
 ![Step 3](screenshots/step3.png)
 
-### Step 4: Access Script Editor
+### Step 4: Save and Authorize
+Save the script. If running for the first time, Google will prompt you to authorize the script.
+![Step 4-1](screenshots/step4-1.png)
+![Step 4-2](screenshots/step4-2.png)
 
-Navigate to "Extensions" > "Apps Script" to open the Script Editor.
-![Step 4](screenshots/step4.png)
+### Step 5: Start Using Functions
+Use the custom functions in your sheet with the required parameters, including the API key if you have one.
 
-### Step 5: Copy and Paste the Script
+## Available Functions
 
-Copy the script from the repository and paste it into the Script Editor.
-![Step 5](screenshots/step5.png)
+1. **CP_TICKERS_ALL(apiKey)**:
+    - Fetches a comprehensive list of cryptocurrency tickers with data in USD and BTC quotes.
+    - Parameters:
+        - `apiKey` (string): API key for CoinPaprika, if available.
+   <!-- [Insert screenshot of CP_TICKERS_ALL function in use] -->
 
-### Step 6: Save, Run, and Authorize
 
-Save the script. You may need to authorize the script to access your Google Sheets.
-![Step 6-1](screenshots/step6-1.png)
-![Step 6-2](screenshots/step6-2.png)
+2. **CP_TICKERS(symbol, colName, apiKey)**:
+    - Fetches specific data for a given cryptocurrency symbol.
+    - Parameters:
+        - `symbol` (string): Symbol of the cryptocurrency (e.g., 'BTC').
+        - `colName` (string): Name of the data column to retrieve (e.g., 'price').
+        - `apiKey` (string): API key for CoinPaprika, if available.
 
-### Step 7: Fetch and Update Data
+3. **CP_TICKERS_HISTORY(coinId, date, type, quote, apiKey)**:
+    - Retrieves historical data for a specified cryptocurrency.
+    - Parameters:
+        - `coinId` (string): ID of the cryptocurrency (e.g., 'btc-bitcoin').
+        - `date` (string): Date for historical data in 'YYYY-MM-DD' format.
+        - `type` (string): Type of historical data to retrieve (e.g., 'price').
+        - `quote` (string): Quote currency (default is 'usd').
+        - `apiKey` (string): API key for CoinPaprika, if available.
 
-Return to your Google Sheets document. Use the new "CoinPaprika" menu to fetch the latest cryptocurrency data.
+4. **CP_COINS(coin_id, colName, apiKey)**:
+    - Retrieves specific details about a cryptocurrency based on its coin ID.
+    - Parameters:
+        - `coin_id` (string): Unique identifier of the cryptocurrency (e.g., 'bitcoin').
+        - `colName` (string): Name of the property to retrieve (e.g., 'usd/price').
+        - `apiKey` (string): API key for CoinPaprika, if available.
 
-![Step 7](screenshots/step7.png)
-
-![Step result](screenshots/result.png)
+5. **CP_GLOBAL(apiKey)**:
+    - Fetches and populates global cryptocurrency data.
+    - Parameters:
+        - `apiKey` (string): API key for CoinPaprika, if available.
 
 ## API-PRO Features
 
-Upgrade to CoinPaprika API-PRO for more insights:
-
+Upgrade to CoinPaprika API-PRO for additional insights:
 - **Enhanced Historical Data**: Access detailed historical data.
-- **Greater Asset Coverage**: Track a wider range of cryptocurrencies.
-- **Refined Price Calculation**: Get more frequent price updates.
+- **Wider Asset Coverage**: Track a broader range of cryptocurrencies.
+- **Frequent Price Updates**: Get more refined price updates.
 
 [Upgrade to API-PRO](https://coinpaprika.com/api) for advanced features.
 
 ## About CoinPaprika
 
-[CoinPaprika](https://coinpaprika.com) offers comprehensive market data, making it a trusted resource for cryptocurrency insights.
-
-## Documentation
-
-For detailed API information, visit the [CoinPaprika API Documentation](https://api.coinpaprika.com).
-
-## Credits
-
-This integration is inspired by [Pedrojok01](https://github.com/Pedrojok01/Import-CryptoData-into-GoogleSheet).
+[CoinPaprika](https://coinpaprika.com) provides comprehensive market data and is a trusted resource for cryptocurrency insights.
 
 ## Support and Feedback
 
@@ -84,8 +87,4 @@ For support, suggestions, or feedback, please visit [GitHub Issues](https://gith
 
 ## Legal Disclaimer
 
-This tool is provided 'as is', without warranty of any kind. Users should adhere to CoinPaprika's API terms of service.
-
-## Contribute
-
-Contributions to enhance this tool are welcome! Please follow the contributing guidelines in the repository.
+This tool is
