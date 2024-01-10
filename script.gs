@@ -203,7 +203,7 @@ function FETCHURL_(endpoint, apiKey) {
   const baseUrl = apiKey ? API_PRO_BASE_URL : API_BASE_URL;
   const url = `${baseUrl}/${endpoint}`;
 
-  const response = UrlFetchApp.fetch(url, { reqHeaders, muteHttpExceptions: true });
+  const response = UrlFetchApp.fetch(url, { headers:reqHeaders, muteHttpExceptions: true });
   RESPONSECODE_(response);
   return JSON.parse(response.getContentText());
 }
