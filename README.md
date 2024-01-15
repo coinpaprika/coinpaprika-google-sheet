@@ -20,7 +20,7 @@ In Google Sheets, navigate to "Extensions" > "Apps Script" to open the Script Ed
 ![Step 2](screenshots/step2.png)
 
 ### Step 3: Copy and Paste the Script
-Copy the CoinPaprika integration script from the repository and paste it into the Script Editor.
+Copy the CoinPaprika integration [script from the repository](https://raw.githubusercontent.com/coinpaprika/coinpaprika-google-sheet/main/script.gs) and paste it into the Script Editor.
 ![Step 3](screenshots/step3.png)
 
 ### Step 4: Save and Authorize
