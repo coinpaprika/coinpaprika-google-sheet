@@ -12,7 +12,7 @@ Welcome to the updated CoinPaprika Google Sheets Integration! This tool integrat
 ## Setup Guide
 
 ### Step 1: Open Google Sheets
-Create or open an existing Google Sheets document for cryptocurrency data integration.
+[Create](https://sheet.new/) or [open](https://drive.google.com/) an existing Google Sheets document for cryptocurrency data integration.
 ![Step 1](screenshots/step1.png)
 
 ### Step 2: Access Script Editor
