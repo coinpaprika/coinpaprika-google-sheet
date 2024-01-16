@@ -44,9 +44,14 @@ Use the custom functions in your sheet with the required parameters, including t
    - Parameters:
       - `coinId` (string): Symbol of the cryptocurrency (e.g., 'BTC').
       - `apiKey` (string): API key for CoinPaprika, if available.
-   - Formula Usage Example:
+   - Formula Usage example: 
+      - API pro - without limits:
      ```excel
      =CP_TICKERS("btc-bitcoin", "your_api_key_here")
+     ```
+      - API free:
+     ```excel
+     =CP_TICKERS("btc-bitcoin")
      ```
 
 2. **CP_TICKERS_HISTORY(coinId, date, interval, limit, quote, apiKey)**:
@@ -69,8 +74,13 @@ Use the custom functions in your sheet with the required parameters, including t
       - `coin_id` (string): Unique identifier of the cryptocurrency (e.g., 'bitcoin').
       - `apiKey` (string): API key for CoinPaprika, if available.
    - Formula Usage Example:
+      - API pro - without limits:
      ```excel
      =CP_COINS("btc-bitcoin", "your_api_key_here")
+     ```
+     - API free:
+     ```excel
+     =CP_COINS("btc-bitcoin")
      ```
 
 4. **CP_GLOBAL(apiKey)**:
@@ -78,8 +88,13 @@ Use the custom functions in your sheet with the required parameters, including t
    - Parameters:
       - `apiKey` (string): API key for CoinPaprika, if available.
    - Formula Usage Example:
+      - API pro - without limits:
      ```excel
      =CP_GLOBAL("your_api_key_here")
+     ```
+     - API free:
+     ```excel
+     =CP_GLOBAL()
      ```
 
 ## API-PRO Features
