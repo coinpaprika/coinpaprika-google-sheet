@@ -2,6 +2,25 @@ const API_BASE_URL = "https://api.coinpaprika.com/v1";
 const API_PRO_BASE_URL = "https://api-pro.coinpaprika.com/v1";
 
 /**
+ /**
+ * Retrieves price(in USD) of a cryptocurrency based on its coin ID.
+ *
+ * This function uses the coin_id to fetch data about the cryptocurrency.
+ *
+ * @param {string} coin_id - The unique identifier of the cryptocurrency (e.g., 'bitcoin').
+ * @param {string} apiKey - The API key required for access.
+ * @returns {number} - Returns price.
+ * @customfunction
+ */
+function CP(coin_id, apiKey) {
+  const url = `tickers/${coin_id}?quotes=USD,BTC`;
+  const data = FETCHURL_(url, apiKey);
+  let key = "price"
+
+  return data.quotes["USD"][key] || "";
+}
+
+/**
  * Retrieves specific data for a given cryptocurrency symbol.
  *
  * This function makes an API call to fetch data for a specific cryptocurrency symbol, including
