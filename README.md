@@ -97,6 +97,21 @@ Use the custom functions in your sheet with the required parameters, including t
      =CP_GLOBAL()
      ```
 
+5. **CP(coinId, apiKey)**:
+    - Fetches USD price for a given cryptocurrency symbol.
+    - Parameters:
+        - `coinId` (string): Symbol of the cryptocurrency (e.g., 'btc-bitcoin').
+        - `apiKey` (string): API key for CoinPaprika, if available.
+    - Formula Usage example:
+        - API pro - without limits:
+      ```excel
+      =CP("btc-bitcoin", "your_api_key_here")
+      ```
+        - API free:
+      ```excel
+      =CP("btc-bitcoin")
+      ```
+
 ## API-PRO Features
 
 Upgrade to CoinPaprika API-PRO for additional insights:
