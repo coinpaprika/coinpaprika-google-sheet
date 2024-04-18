@@ -13,11 +13,15 @@ const API_PRO_BASE_URL = "https://api-pro.coinpaprika.com/v1";
  * @customfunction
  */
 function CP(coin_id, apiKey) {
+  coin_id='btc-bitcoin'
   const url = `tickers/${coin_id}?quotes=USD,BTC`;
-  const data = FETCHURL_(url, apiKey);
-  let key = "price"
-
-  return data.quotes["USD"][key] || "";
+  try {
+    const data = FETCHURL_(url, apiKey);
+    let key = "price"
+    return data.quotes["USD"][key] || "";
+  } catch (e) {
+    return `Error: ${e.message}`;
+  }
 }
 
 /**
@@ -34,8 +38,6 @@ function CP(coin_id, apiKey) {
  */
 function CP_TICKERS(coinId, apiKey) {
   const url = `tickers/${coinId}?quotes=USD,BTC`;
-  const data = FETCHURL_(url, apiKey);
-
   const headers = [
     "id", "name", "symbol", "rank", "circulating_supply", "total_supply", "max_supply",
     "beta_value", "first_data_at", "last_updated", "btc_price", "btc_volume_24h",
@@ -51,22 +53,26 @@ function CP_TICKERS(coinId, apiKey) {
     "usd_percent_change_1y", "usd_ath_price", "usd_ath_date",
     "usd_percent_from_price_ath",
   ];
+  try {
+    const data = FETCHURL_(url, apiKey);
+    const values = [headers.map(header => {
+      if (header.startsWith("btc_")) {
+        const key = header.slice(4);
+        return data.quotes["BTC"][key] || "";
+      }
+      if (header.startsWith("usd_")) {
+        const key = header.slice(4);
+        return data.quotes["USD"][key] || "";
+      }
+      return data[header] || "";
+    })];
 
-  const values = [headers.map(header => {
-    if (header.startsWith("btc_")) {
-      const key = header.slice(4);
-      return data.quotes["BTC"][key] || "";
-    }
-    if (header.startsWith("usd_")) {
-      const key = header.slice(4);
-      return data.quotes["USD"][key] || "";
-    }
-    return data[header] || "";
-  })];
+    values.unshift(headers);
 
-  values.unshift(headers);
-
-  return values;
+    return values;
+  } catch (e) {
+    return `Error: ${e.message}`;
+  }
 }
 
 /**
@@ -90,22 +96,25 @@ function CP_TICKERS_HISTORY(coinId, date, interval, limit, quote, apiKey) {
 
   const formattedDate = date instanceof Date ? date.toISOString() : date;
   const url = `tickers/${coinId}/historical?start=${formattedDate}&interval=${interval}&limit=${limit}&quote=${quote}`;
-  const data = FETCHURL_(url, apiKey);
+  try {
+    const data = FETCHURL_(url, apiKey);
+    const result = [];
+    const keys = Object.keys(data[0]);
+    result.push(keys);
 
-  const result = [];
-  const keys = Object.keys(data[0]);
-  result.push(keys);
+    for (const entry of data) {
+      const values = keys.map(key => entry[key] || "");
+      result.push(values);
+    }
 
-  for (const entry of data) {
-    const values = keys.map(key => entry[key] || "");
-    result.push(values);
+    return result;
+  } catch (e) {
+    return `Error: ${e.message}`;
   }
-
-  return result;
 }
 
 /**
-/**
+ /**
  * Retrieves specific details about a cryptocurrency based on its coin ID.
  *
  * This function uses the coin_id to fetch data about the cryptocurrency.
@@ -118,7 +127,9 @@ function CP_TICKERS_HISTORY(coinId, date, interval, limit, quote, apiKey) {
  */
 function CP_COINS(coin_id, apiKey) {
   const param = encodeURI(coin_id);
-    const data = FETCHURL_(`coins/${param}`, apiKey);
+  const url = `coins/${param}`
+  try {
+    const data = FETCHURL_(url, apiKey);
     const headers = [];
     const values = [];
 
@@ -130,6 +141,9 @@ function CP_COINS(coin_id, apiKey) {
     }
 
     return [headers, values];
+  } catch (e) {
+    return `Error: ${e.message}`;
+  }
 }
 
 /**
@@ -145,19 +159,23 @@ function CP_COINS(coin_id, apiKey) {
  * @customfunction
  */
 function CP_GLOBAL(apiKey) {
-  const data = FETCHURL_('global', apiKey);
+  const url = 'global'
+  try {
+    const data = FETCHURL_(url, apiKey);
+    const headers = [];
+    const values = [];
 
-  const headers = [];
-  const values = [];
-
-  for (let key in data) {
-    if (data.hasOwnProperty(key)) {
-      headers.push(key);
-      values.push(data[key]);
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        headers.push(key);
+        values.push(data[key]);
+      }
     }
-  }
 
-  return [headers, values];
+    return [headers, values];
+  } catch (e) {
+    return `Error: ${e.message}`;
+  }
 }
 
 /* UTILS:
@@ -180,8 +198,8 @@ function FETCHURL_(endpoint, apiKey) {
 function RESPONSECODE_(v) {
   const responseCode = v.getResponseCode();
 
-  if (responseCode === 429) {
-    throw new Error("Too many requests");
+  if (responseCode === 429 || responseCode === 402) {
+    throw new Error("You have reached the free plan limit, please visit https://coinpaprika.com/api for more information");
   } else if (responseCode !== 200) {
     throw new Error(`Server error. Response: ${v.getContentText()}`);
   }
